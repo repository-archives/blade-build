@@ -15,7 +15,18 @@ from __future__ import absolute_import
 import collections
 import os
 import re
-from distutils.version import LooseVersion
+import sys
+
+if sys.version_info >= (3, 12):
+    # Python 3.12+ 必须使用 packaging.version
+    from packaging.version import Version as VersionParser
+else:
+    try:
+        # 优先尝试使用 packaging.version
+        from packaging.version import Version as VersionParser
+    except ImportError:
+        # 回退到 distutils.version
+        from distutils.version import LooseVersion as VersionParser
 
 from blade import build_manager
 from blade import build_rules

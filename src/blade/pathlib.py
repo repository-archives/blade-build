@@ -10,7 +10,13 @@ import posixpath
 import re
 import sys
 import time
-from collections import Sequence
+if sys.version_info >= (3, 3):
+    from collections.abc import Sequence
+else:
+    try:
+        from collections.abc import Sequence
+    except ImportError:
+        from collections import Sequence
 from contextlib import contextmanager
 from errno import EINVAL, ENOENT
 from operator import attrgetter
